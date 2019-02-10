@@ -146,6 +146,7 @@ class NavigationStackPageState extends State<NavigationStackPage>
     return AnimatedBuilder(
         animation: _animation,
         builder: (context, animation) {
+          if (presentedPage == null) return Container();
           if (presentedPage is NavigationStackAnimatable) {
             (presentedPage as NavigationStackAnimatable)
                 .animate(_animation.value);
@@ -189,7 +190,8 @@ class NavigationStackPageState extends State<NavigationStackPage>
                 var stack = Stack(
                   fit: StackFit.passthrough,
                   children: <Widget>[
-                    _previousPage.getBodyPreferences(context).isScrollable
+                    _previousPage?.getBodyPreferences(context).isScrollable ==
+                            true
                         ? Positioned(
                             left: 0,
                             top: 0,
