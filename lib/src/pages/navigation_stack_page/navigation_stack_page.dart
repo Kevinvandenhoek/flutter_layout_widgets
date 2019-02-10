@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tf_layout_widgets/src/pages/top_bar_page/top_bar_page.dart';
 import 'package:tf_layout_widgets/src/rx/stream_item.dart';
-import 'package:tf_layout_widgets/src/ui_elements/top_bars/top_bar.dart';
 
 class NavigationStackController {
   NavigationStackPageState parent;
@@ -32,8 +31,12 @@ abstract class NavigationStackPageItem extends TopBarPageItem {
   void dispose() {}
 }
 
-typedef TopBarBuilder = Widget Function(BuildContext context,
-    TopBarPreferences topBarPreferences, Widget centerView, Widget bottomView);
+typedef TopBarBuilder = Widget Function(
+  BuildContext context,
+  TopBarPreferences topBarPreferences,
+  Widget centerView,
+  Widget bottomView,
+);
 
 abstract class NavigationStackAnimatable {
   void animate(double lerp) {
@@ -167,10 +170,11 @@ class NavigationStackPageState extends State<NavigationStackPage>
               .getBodyPreferences(context)
               .lerpTo(presentedPage.getBodyPreferences(context), _animation);
           var topBar = widget.topBarBuilder(
-              context,
-              topBarPreferences,
-              presentedPage.buildTopBarCenterView(context),
-              presentedPage.buildTopBarBottomView(context));
+            context,
+            topBarPreferences,
+            presentedPage.buildTopBarCenterView(context),
+            presentedPage.buildTopBarBottomView(context),
+          );
           return TopBarPage(
             topBarFractionalHeight:
                 topBarPreferences.preferredTopBarFractionalHeight,

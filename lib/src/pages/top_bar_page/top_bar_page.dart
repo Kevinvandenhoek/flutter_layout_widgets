@@ -70,6 +70,8 @@ class CurvedTopBarPreferences extends TopBarPreferences {
             preferredTopBarColor: preferredTopBarColor);
 
   static CurvedTopBarPreferences from(TopBarPreferences topBarPreferences) {
+    if (topBarPreferences is CurvedTopBarPreferences)
+      return topBarPreferences as CurvedTopBarPreferences;
     return CurvedTopBarPreferences(
       preferredTopBarColor: topBarPreferences.preferredTopBarColor,
       preferredTopBarFractionalHeight:

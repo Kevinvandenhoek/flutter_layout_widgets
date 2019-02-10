@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tf_layout_widgets/src/pages/top_bar_page/top_bar_page.dart';
 import 'package:tf_layout_widgets/src/ui_elements/clippers/curved_bottom_clipper.dart';
 import 'package:tf_layout_widgets/src/ui_elements/top_bars/top_bar.dart';
 
@@ -25,6 +26,20 @@ class CurvedTopBar extends StatelessWidget {
     this.onBackButtonPressed,
   })  : assert(decoration != null ? color == null : true),
         assert(onBackButtonPressed != null);
+
+  static CurvedTopBar from(CurvedTopBarPreferences preferences,
+      Widget centerView, Widget bottomView, Function onBackButtonPressed) {
+    return CurvedTopBar(
+      amplitude: preferences.preferredTopBarAmplitude,
+      waveLerp: preferences.preferredTopBarWaveLerp,
+      waveFrequency: preferences.preferredTopBarWaveFrequency,
+      waveOffset: preferences.preferredTopBarWaveOffset,
+      color: preferences.preferredTopBarColor,
+      centerView: centerView,
+      bottomView: bottomView,
+      onBackButtonPressed: onBackButtonPressed,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
