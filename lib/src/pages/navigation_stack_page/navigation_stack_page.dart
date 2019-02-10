@@ -31,7 +31,16 @@ abstract class NavigationStackPageItem extends TopBarPageItem {
   void dispose() {}
 }
 
-typedef TopBarBuilder = Widget Function(
+class TopBarSet {
+  final Widget topBar;
+  final Widget Function(BuildContext context, Widget child) buildContainer;
+  TopBarSet({
+    @required this.topBar,
+    @required this.buildContainer,
+  });
+}
+
+typedef TopBarBuilder = TopBarSet Function(
   BuildContext context,
   TopBarPreferences topBarPreferences,
   Widget centerView,
@@ -169,7 +178,7 @@ class NavigationStackPageState extends State<NavigationStackPage>
           var bodyPreferences = oldPreferencesPage
               .getBodyPreferences(context)
               .lerpTo(presentedPage.getBodyPreferences(context), _animation);
-          var topBar = widget.topBarBuilder(
+          var topBarSet = widget.topBarBuilder(
             context,
             topBarPreferences,
             presentedPage.buildTopBarCenterView(context),
@@ -183,7 +192,14 @@ class NavigationStackPageState extends State<NavigationStackPage>
             isScrollable:
                 presentedPage.getBodyPreferences(context).isScrollable,
             buildTopBar: (context) {
-              return topBar;
+              return topBarSet.buildContainer(
+                context,
+                AnimatedSize(
+                  duration: duration,
+                  vsync: this,
+                  child: topBarSet.topBar,
+                ),
+              );
             },
             buildBody: (context) {
               if (_animation.isCompleted) {
