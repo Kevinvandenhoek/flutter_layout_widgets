@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_layout_widgets/pages/top_bar_page/top_bar_page.dart';
-import 'package:flutter_layout_widgets/pages/top_bar_page/top_bars/curved_top_bar.dart';
+import 'package:tf_layout_widgets/widgets/pages/top_bar_page/top_bar_page.dart';
 
 class TestTopBarPageB extends TopBarPageItem {
   final String title =
