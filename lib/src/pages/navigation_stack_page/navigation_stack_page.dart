@@ -41,7 +41,10 @@ class NavigationStackPage extends StatefulWidget {
   NavigationStackPage(
       {@required this.controller,
       @required this.rootWidget,
-      @required this.topBarBuilder});
+      @required this.topBarBuilder})
+      : assert(rootWidget != null),
+        assert(controller != null),
+        assert(topBarBuilder != null);
 
   @override
   State<StatefulWidget> createState() {
