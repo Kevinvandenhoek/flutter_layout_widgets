@@ -30,22 +30,24 @@ class BodyPreferences {
 
   BodyPreferences({
     this.preferredBodyHeight,
-    this.preferredBodyColor,
+    this.preferredBodyColor = Colors.transparent,
     this.isScrollable = false,
   });
 
   BodyPreferences lerpTo(
       BodyPreferences otherBodyPreferences, Animation<double> animation) {
+    var pHeight = otherBodyPreferences.preferredBodyHeight;
+    if (preferredBodyHeight != null && pHeight != null) {
+      pHeight = Tween<double>(begin: preferredBodyHeight, end: pHeight)
+          .evaluate(animation);
+    }
     return BodyPreferences(
       isScrollable: otherBodyPreferences.isScrollable,
-      preferredBodyColor: Tween<Color>(
+      preferredBodyColor: ColorTween(
               begin: preferredBodyColor,
               end: otherBodyPreferences.preferredBodyColor)
           .evaluate(animation),
-      preferredBodyHeight: Tween<double>(
-              begin: preferredBodyHeight,
-              end: otherBodyPreferences.preferredBodyHeight)
-          .evaluate(animation),
+      preferredBodyHeight: pHeight,
     );
   }
 }
@@ -113,20 +115,29 @@ class TopBarPreferences {
   final Color preferredTopBarColor;
 
   TopBarPreferences(
-      {this.preferredTopBarFractionalHeight, this.preferredTopBarColor});
+      {this.preferredTopBarFractionalHeight,
+      this.preferredTopBarColor = Colors.transparent});
 
   TopBarPreferences lerpTo(
       TopBarPreferences otherTopBarPreferences, Animation<double> animation) {
-    return TopBarPreferences(
-      // Is there a way to dyanmically loop through properties as types T?
-      preferredTopBarFractionalHeight: Tween<double>(
-              begin: preferredTopBarFractionalHeight,
-              end: otherTopBarPreferences.preferredTopBarFractionalHeight)
-          .evaluate(animation),
-      preferredTopBarColor: Tween<Color>(
+    var pColor = otherTopBarPreferences.preferredTopBarColor;
+    if (preferredTopBarColor != null && pColor != null) {
+      pColor = ColorTween(
               begin: preferredTopBarColor,
               end: otherTopBarPreferences.preferredTopBarColor)
-          .evaluate(animation),
+          .evaluate(animation);
+    }
+    var pHeight = otherTopBarPreferences.preferredTopBarFractionalHeight;
+    if (preferredTopBarFractionalHeight != null && pHeight != null) {
+      pHeight = Tween<double>(
+              begin: preferredTopBarFractionalHeight,
+              end: otherTopBarPreferences.preferredTopBarFractionalHeight)
+          .evaluate(animation);
+    }
+    return TopBarPreferences(
+      // Is there a way to dyanmically loop through properties as types T?
+      preferredTopBarFractionalHeight: pHeight,
+      preferredTopBarColor: pColor,
     );
   }
 }

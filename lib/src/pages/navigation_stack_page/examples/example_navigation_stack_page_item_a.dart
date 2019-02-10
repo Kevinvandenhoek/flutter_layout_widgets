@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tf_layout_widgets/src/pages/navigation_stack_page/extensions/animated_navigation_stack_page.dart';
 import 'package:tf_layout_widgets/src/pages/navigation_stack_page/navigation_stack_page.dart';
 import 'package:tf_layout_widgets/src/ui_elements/top_bars/top_bar_center_views/title_subtitle_top_bar_center_view.dart';
 
