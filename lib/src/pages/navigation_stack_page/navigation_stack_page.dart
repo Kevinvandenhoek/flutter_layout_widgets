@@ -213,7 +213,7 @@ class NavigationStackPageState extends State<NavigationStackPage>
         child: AnimatedSize(
           vsync: this,
           duration: duration,
-          child: pageToBuild.buildBody(context),
+          child: pageToBuild?.buildBody(context) ?? Container(),
         ),
       );
     };
