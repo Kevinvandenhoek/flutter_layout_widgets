@@ -190,7 +190,7 @@ class NavigationStackPageState extends State<NavigationStackPage>
                 var stack = Stack(
                   fit: StackFit.passthrough,
                   children: <Widget>[
-                    _previousPage?.getBodyPreferences(context).isScrollable ==
+                    _previousPage?.getBodyPreferences(context)?.isScrollable ==
                             true
                         ? Positioned(
                             left: 0,
