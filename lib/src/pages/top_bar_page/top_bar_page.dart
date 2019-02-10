@@ -6,8 +6,6 @@ import 'package:tf_layout_widgets/src/rx/stream_item.dart';
 abstract class TopBarPageItem {
   Widget buildBody(BuildContext context);
 
-  //Widget buildTopBar(BuildContext context);
-
   Widget buildTopBarCenterView(BuildContext context) {
     return null;
   }
@@ -16,41 +14,120 @@ abstract class TopBarPageItem {
     return null;
   }
 
-  double get preferredBodyHeight {
-    return null;
+  BodyPreferences getBodyPreferences(BuildContext context) {
+    return BodyPreferences();
   }
 
-  double get preferredTopBarFractionalHeight {
-    return null;
+  TopBarPreferences getTopBarPreferences(BuildContext context) {
+    return TopBarPreferences();
+  }
+}
+
+class BodyPreferences {
+  final double preferredBodyHeight;
+  final Color preferredBodyColor;
+  final bool isScrollable;
+
+  BodyPreferences({
+    this.preferredBodyHeight,
+    this.preferredBodyColor,
+    this.isScrollable = false,
+  });
+
+  BodyPreferences lerpTo(
+      BodyPreferences otherBodyPreferences, Animation<double> animation) {
+    return BodyPreferences(
+      isScrollable: otherBodyPreferences.isScrollable,
+      preferredBodyColor: Tween<Color>(
+              begin: preferredBodyColor,
+              end: otherBodyPreferences.preferredBodyColor)
+          .evaluate(animation),
+      preferredBodyHeight: Tween<double>(
+              begin: preferredBodyHeight,
+              end: otherBodyPreferences.preferredBodyHeight)
+          .evaluate(animation),
+    );
+  }
+}
+
+class CurvedTopBarPreferences extends TopBarPreferences {
+  final double preferredTopBarAmplitude;
+  final double preferredTopBarWaveLerp;
+  final double preferredTopBarWaveOffset;
+  final double preferredTopBarWaveFrequency;
+
+  CurvedTopBarPreferences({
+    Color preferredTopBarColor,
+    double preferredTopBarFractionalHeight,
+    this.preferredTopBarAmplitude = 1.0,
+    this.preferredTopBarWaveLerp = 0.0,
+    this.preferredTopBarWaveOffset = 1.0,
+    this.preferredTopBarWaveFrequency = 1.0,
+  }) : super(
+            preferredTopBarFractionalHeight: preferredTopBarFractionalHeight,
+            preferredTopBarColor: preferredTopBarColor);
+
+  static CurvedTopBarPreferences from(TopBarPreferences topBarPreferences) {
+    return CurvedTopBarPreferences(
+      preferredTopBarColor: topBarPreferences.preferredTopBarColor,
+      preferredTopBarFractionalHeight:
+          topBarPreferences.preferredTopBarFractionalHeight,
+    );
   }
 
-  Color get preferredTopBarColor {
-    return Colors.blue.shade200;
+  @override
+  TopBarPreferences lerpTo(
+      TopBarPreferences otherTopBarPreferences, Animation<double> animation) {
+    var lerpedSuper = super.lerpTo(otherTopBarPreferences, animation);
+    if (otherTopBarPreferences is CurvedTopBarPreferences) {
+      var otherCurve = otherTopBarPreferences as CurvedTopBarPreferences;
+      return CurvedTopBarPreferences(
+        preferredTopBarColor: lerpedSuper.preferredTopBarColor,
+        preferredTopBarFractionalHeight:
+            lerpedSuper.preferredTopBarFractionalHeight,
+        preferredTopBarAmplitude: Tween<double>(
+          begin: preferredTopBarAmplitude,
+          end: otherCurve.preferredTopBarAmplitude,
+        ).evaluate(animation),
+        preferredTopBarWaveLerp: Tween<double>(
+          begin: preferredTopBarWaveLerp,
+          end: otherCurve.preferredTopBarWaveLerp,
+        ).evaluate(animation),
+        preferredTopBarWaveFrequency: Tween<double>(
+          begin: preferredTopBarWaveFrequency,
+          end: otherCurve.preferredTopBarWaveFrequency,
+        ).evaluate(animation),
+        preferredTopBarWaveOffset: Tween<double>(
+          begin: preferredTopBarWaveOffset,
+          end: otherCurve.preferredTopBarWaveOffset,
+        ).evaluate(animation),
+      );
+    } else {
+      return CurvedTopBarPreferences.from(lerpedSuper);
+    }
   }
+}
 
-  Color get preferredBodyColor {
-    return Colors.grey.shade200;
-  }
+class TopBarPreferences {
+  final double preferredTopBarFractionalHeight;
+  final Color preferredTopBarColor;
 
-  bool get isScrollable {
-    return false;
-  }
+  TopBarPreferences(
+      {this.preferredTopBarFractionalHeight, this.preferredTopBarColor});
 
-  //TODO: pack the values below as 'CurvedBottomBarConfiguration'
-  double get preferredTopBarAmplitude {
-    return 1.0;
-  }
-
-  double get preferredTopBarWaveLerp {
-    return 0.0;
-  }
-
-  double get preferredTopBarWaveOffset {
-    return 1.0;
-  }
-
-  double get preferredTopBarWaveFrequency {
-    return 1.0;
+  TopBarPreferences lerpTo(
+      TopBarPreferences otherTopBarPreferences, Animation<double> animation) {
+    return TopBarPreferences(
+      // Is there a way to dyanmically loop through properties as types T?
+      preferredTopBarFractionalHeight: Tween<double>(
+              begin: preferredTopBarFractionalHeight,
+              end: otherTopBarPreferences.preferredTopBarFractionalHeight)
+          .evaluate(animation),
+      preferredTopBarColor: Tween<Color>(
+              begin: preferredTopBarColor,
+              end: otherTopBarPreferences.preferredTopBarColor)
+          .evaluate(animation),
+    );
   }
 }
 
