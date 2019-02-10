@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tf_layout_widgets/widgets/pages/top_bar_page/sliver_top_bar/sliver_top_bar.dart';
-import 'package:tf_layout_widgets/widgets/rx/stream_item.dart';
+import 'package:tf_layout_widgets/src/pages/top_bar_page/sliver_top_bar/sliver_top_bar.dart';
+import 'package:tf_layout_widgets/src/rx/stream_item.dart';
 
 /// A [TopBarPageItem] is a page that has a top bar, which is similar to an [AppBar], but unlike the [AppBar] dynamically sizes to it's child's needs. It is recommended to see the Object that extends this behaviour as the widget controller, which controls the supplemented topbar and body.
 abstract class TopBarPageItem {

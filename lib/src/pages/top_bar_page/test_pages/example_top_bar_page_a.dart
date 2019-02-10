@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tf_layout_widgets/widgets/pages/top_bar_page/top_bar_page.dart';
+import 'package:tf_layout_widgets/src/pages/top_bar_page/top_bar_page.dart';
 
 class TestTopBarPageA extends TopBarPageItem {
   final String title =

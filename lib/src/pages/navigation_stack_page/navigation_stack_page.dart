@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tf_layout_widgets/widgets/pages/top_bar_page/top_bar_page.dart';
-import 'package:tf_layout_widgets/widgets/pages/top_bar_page/top_bars/curved_top_bar.dart';
+import 'package:tf_layout_widgets/src/pages/top_bar_page/top_bar_page.dart';
+import 'package:tf_layout_widgets/src/pages/top_bar_page/top_bars/curved_top_bar.dart';
 
 class NavigationStackController {
   NavigationStackPageState parent;

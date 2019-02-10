@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tf_layout_widgets/widgets/ui_elements/button.dart';
+import 'package:tf_layout_widgets/src/ui_elements/button.dart';
 
 class TopBar extends StatelessWidget {
   final Decoration decoration;

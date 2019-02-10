@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tf_layout_widgets/widgets/pages/navigation_stack_page/navigation_stack_page.dart';
-import 'package:tf_layout_widgets/widgets/pages/top_bar_page/top_bars/top_bar_center_views/title_subtitle_top_bar_center_view.dart';
+import 'package:tf_layout_widgets/src/pages/navigation_stack_page/navigation_stack_page.dart';
+import 'package:tf_layout_widgets/src/pages/top_bar_page/top_bars/top_bar_center_views/title_subtitle_top_bar_center_view.dart';
 
 class TestNavigationStackPageItemB extends NavigationStackPageItem {
   @override

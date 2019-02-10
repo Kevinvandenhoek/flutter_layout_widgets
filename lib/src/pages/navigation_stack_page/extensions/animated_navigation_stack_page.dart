@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tf_layout_widgets/widgets/pages/navigation_stack_page/navigation_stack_page.dart';
-import 'package:tf_layout_widgets/widgets/pages/top_bar_page/top_bar_page.dart';
-import 'package:tf_layout_widgets/widgets/pages/top_bar_page/top_bars/curved_top_bar.dart';
-import 'package:tf_layout_widgets/widgets/rx/stream_item.dart';
+import 'package:tf_layout_widgets/src/pages/navigation_stack_page/navigation_stack_page.dart';
+import 'package:tf_layout_widgets/src/pages/top_bar_page/top_bar_page.dart';
+import 'package:tf_layout_widgets/src/pages/top_bar_page/top_bars/curved_top_bar.dart';
+import 'package:tf_layout_widgets/src/rx/stream_item.dart';
 
 abstract class NavigationStackAnimatable {
   void animate(double lerp) {
