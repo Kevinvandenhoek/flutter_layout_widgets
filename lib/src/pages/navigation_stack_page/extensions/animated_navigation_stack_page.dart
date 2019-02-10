@@ -45,7 +45,7 @@ class AnimatedNavigationStackPage extends NavigationStackPage {
 
 class AnimatedNavigationStackPageState extends NavigationStackPageState
     with TickerProviderStateMixin {
-  AnimatedNavigationStackPageState() {
+  AnimatedNavigationStackPageState() : super() {
     _animationController = AnimationController(
       duration: duration,
       vsync: this,
