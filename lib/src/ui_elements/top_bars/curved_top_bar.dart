@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tf_layout_widgets/src/pages/top_bar_page/top_bars/top_bar.dart';
 import 'package:tf_layout_widgets/src/ui_elements/clippers/curved_bottom_clipper.dart';
+import 'package:tf_layout_widgets/src/ui_elements/top_bars/top_bar.dart';
 
 class CurvedTopBar extends StatelessWidget {
   final double amplitude;

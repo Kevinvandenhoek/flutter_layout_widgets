@@ -36,7 +36,6 @@ class TopBar extends StatelessWidget {
           ),
           onPressed: () {
             onBackButtonPressed();
-            print("DID PRESS BACK");
           },
         ),
         Expanded(
