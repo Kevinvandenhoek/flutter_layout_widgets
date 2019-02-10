@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tf_layout_widgets/src/pages/navigation_stack_page/navigation_stack_page.dart';
 import 'package:tf_layout_widgets/src/pages/top_bar_page/top_bar_page.dart';
 import 'package:tf_layout_widgets/src/rx/stream_item.dart';
-import 'package:tf_layout_widgets/src/ui_elements/top_bars/curved_top_bar.dart';
 
 abstract class NavigationStackAnimatable {
   void animate(double lerp) {
@@ -28,11 +27,15 @@ abstract class NavigationStackAnimatable {
 }
 
 class AnimatedNavigationStackPage extends NavigationStackPage {
-  final NavigationStackController controller;
-  final NavigationStackPageItem rootWidget;
-
-  AnimatedNavigationStackPage(
-      {@required this.controller, @required this.rootWidget});
+  AnimatedNavigationStackPage({
+    @required NavigationStackController controller,
+    @required NavigationStackPageItem rootWidget,
+    @required TopBarBuilder topBarBuilder,
+  }) : super(
+          controller: controller,
+          rootWidget: rootWidget,
+          topBarBuilder: topBarBuilder,
+        );
 
   @override
   State<StatefulWidget> createState() {
@@ -62,18 +65,7 @@ class AnimatedNavigationStackPageState extends NavigationStackPageState
   AnimationController _animationController;
   Animation _animation;
 
-  // final ColorTween topBarColorTween =
-  //     ColorTween(begin: Colors.transparent, end: Colors.transparent);
-  // final ColorTween bodyColorTween =
-  //     ColorTween(begin: Colors.transparent, end: Colors.transparent);
   final Tween<double> opacityTween = Tween<double>(begin: 0.0, end: 1.0);
-  // final Tween<double> topBarAmplitudeTween =
-  //     Tween<double>(begin: 0.0, end: 1.0);
-  // final Tween<double> topBarWaveFrequencyTween =
-  //     Tween<double>(begin: 0.0, end: 1.0);
-  // final Tween<double> topBarWaveLerpTween = Tween<double>(begin: 0.0, end: 1.0);
-  // final Tween<double> topBarWaveOffsetTween =
-  //     Tween<double>(begin: 0.0, end: 1.0);
 
   NavigationStackPageItem _previousPage;
 
@@ -81,23 +73,6 @@ class AnimatedNavigationStackPageState extends NavigationStackPageState
   set presentedPage(NavigationStackPageItem value) {
     _previousPage = super.presentedPage ?? value;
     super.presentedPage = value;
-    // topBarAmplitudeTween.begin = _previousPage.preferredTopBarAmplitude;
-    // topBarAmplitudeTween.end = presentedPage.preferredTopBarAmplitude;
-
-    // topBarWaveFrequencyTween.begin = _previousPage.preferredTopBarWaveFrequency;
-    // topBarWaveFrequencyTween.end = presentedPage.preferredTopBarWaveFrequency;
-
-    // topBarWaveLerpTween.begin = _previousPage.preferredTopBarWaveLerp;
-    // topBarWaveLerpTween.end = presentedPage.preferredTopBarWaveLerp;
-
-    // topBarWaveOffsetTween.begin = _previousPage.preferredTopBarWaveOffset;
-    // topBarWaveOffsetTween.end = presentedPage.preferredTopBarWaveOffset;
-
-    // topBarColorTween.begin = _previousPage.preferredTopBarColor;
-    // topBarColorTween.end = presentedPage.preferredTopBarColor;
-
-    // bodyColorTween.begin = _previousPage.preferredBodyColor;
-    // bodyColorTween.end = presentedPage.preferredBodyColor;
 
     _previousPage.willDisappear();
     presentedPage.willAppear();

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tf_layout_widgets/src/pages/top_bar_page/top_bar_page.dart';
-import 'package:tf_layout_widgets/src/ui_elements/top_bars/curved_top_bar.dart';
 import 'package:tf_layout_widgets/src/ui_elements/top_bars/top_bar.dart';
 
 class NavigationStackController {
@@ -30,15 +29,14 @@ abstract class NavigationStackPageItem extends TopBarPageItem {
   void dispose() {}
 }
 
+typedef TopBarBuilder = TopBar Function(BuildContext context,
+    TopBarPreferences topBarPreferences, Widget centerView, Widget bottomView);
+
 class NavigationStackPage extends StatefulWidget {
   final NavigationStackController controller;
   final NavigationStackPageItem rootWidget;
 
-  final TopBar Function(
-      BuildContext context,
-      TopBarPreferences topBarPreferences,
-      Widget centerView,
-      Widget bottomView) topBarBuilder;
+  final TopBarBuilder topBarBuilder;
 
   NavigationStackPage(
       {@required this.controller,
