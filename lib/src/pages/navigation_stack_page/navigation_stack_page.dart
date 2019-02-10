@@ -10,13 +10,15 @@ class NavigationStackController {
   }
 
   void push(NavigationStackPageItem item) {
-    if (hasParent) Exception("Parent == null");
-    parent.push(item);
+    if (hasParent == false)
+      Exception("NavigationStackController: Parent == null");
+    parent?.push(item);
   }
 
   void pop() {
-    if (hasParent) Exception("Parent == null");
-    parent.pop();
+    if (hasParent == false)
+      Exception("NavigationStackController: Parent == null");
+    parent?.pop();
   }
 }
 
@@ -30,7 +32,7 @@ abstract class NavigationStackPageItem extends TopBarPageItem {
   void dispose() {}
 }
 
-typedef TopBarBuilder = TopBar Function(BuildContext context,
+typedef TopBarBuilder = Widget Function(BuildContext context,
     TopBarPreferences topBarPreferences, Widget centerView, Widget bottomView);
 
 abstract class NavigationStackAnimatable {
@@ -234,19 +236,33 @@ class NavigationStackPageState extends State<NavigationStackPage>
 
   void pop() {
     if (this.navigationStack.length > 1) {
-      setState(() {
+      var doStuff = () {
         previousPage = navigationStack.removeLast();
         toDispose.add(previousPage);
         presentedPage = navigationStack.last;
-      });
+      };
+      if (mounted) {
+        setState(() {
+          doStuff();
+        });
+      } else {
+        doStuff();
+      }
     }
   }
 
   void push(NavigationStackPageItem item) {
-    setState(() {
+    var doStuff = () {
       previousPage = navigationStack.last;
       this.navigationStack.add(item);
       presentedPage = item;
-    });
+    };
+    if (mounted) {
+      setState(() {
+        doStuff();
+      });
+    } else {
+      doStuff();
+    }
   }
 }
